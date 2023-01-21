@@ -1,0 +1,205 @@
+import discord
+from discord.ext import commands
+import sqlite3
+
+client = commands.Bot(command_prefix = '!')
+
+@client.event
+async def on_message(message):
+    # ignore messages from the bot itself
+    if message.author == client.user:
+        return
+
+    # give the user a point for sending a message
+    user_id = message.author.id
+    points = get_points(user_id)
+    set_points(user_id, points + 1)
+
+@client.command()
+async def xp(ctx):
+    user_id = ctx.message.author.id
+    points = get_points(user_id)
+    level = calculate_level(points)
+    next_level = level + 1
+    next_level_xp = calculate_level_xp(next_level)
+    current_level_xp = calculate_level_xp(level)
+    remaining_xp = next_level_xp - points
+    await ctx.send(f'You are level {level} with {points} XP. To reach level {next_level} you need {remaining_xp} XP. ')
+
+@client.command()
+async def level(ctx):
+    user_id = ctx.message.author.id
+    points = get_points(user_id)
+    level = calculate_level(points)
+    await ctx.send(f'You are level {level}')
+
+def get_points(user_id):
+    #connect to the database
+    conn = sqlite3.connect('xp.sqlite')
+    c = conn.cursor()
+
+    # check if the user exists in the database
+    c.execute("SELECT * FROM xp WHERE user_id = ?", (user_id,))
+    result = c.fetchone()
+
+    if result:
+        # return the user's XP
+        return result[1]
+    else:
+        # if the user doesn't exist in the database, add them with 0 XP
+        c.execute("INSERT INTO xp VALUES (?, 0)", (user_id,))
+        conn.commit()
+        return 0
+
+def set_points(user_id, points):
+    #connect to the database
+    conn = sqlite3.connect('xp.sqlite')
+    c = conn.cursor()
+
+    # update the user's XP in the database
+    c.execute("UPDATE xp SET xp = ? WHERE user_id = ?", (points, user_id))
+    conn.commit()
+
+def calculate_level(points):
+    return int(points ** 0.5 / 10) + 1
+
+def calculate_level_xp(level):
+    return (level-1)**2 * 100
+
+client.run(import discord
+from discord.ext import commands
+import sqlite3
+
+client = commands.Bot(command_prefix = '!')
+
+@client.event
+async def on_message(message):
+    # ignore messages from the bot itself
+    if message.author == client.user:
+        return
+
+    # give the user a point for sending a message
+    user_id = message.author.id
+    points = get_points(user_id)
+    set_points(user_id, points + 1)
+
+@client.command()
+async def xp(ctx):
+    user_id = ctx.message.author.id
+    points = get_points(user_id)
+    level = calculate_level(points)
+    next_level = level + 1
+    next_level_xp = calculate_level_xp(next_level)
+    current_level_xp = calculate_level_xp(level)
+    remaining_xp = next_level_xp - points
+    await ctx.send(f'You are level {level} with {points} XP. To reach level {next_level} you need {remaining_xp} XP. ')
+
+@client.command()
+async def level(ctx):
+    user_id = ctx.message.author.id
+    points = get_points(user_id)
+    level = calculate_level(points)
+    await ctx.send(f'You are level {level}')
+
+def get_points(user_id):
+    #connect to the database
+    conn = sqlite3.connect('xp.sqlite')
+    c = conn.cursor()
+
+    # check if the user exists in the database
+    c.execute("SELECT * FROM xp WHERE user_id = ?", (user_id,))
+    result = c.fetchone()
+
+    if result:
+        # return the user's XP
+        return result[1]
+    else:
+        # if the user doesn't exist in the database, add them with 0 XP
+        c.execute("INSERT INTO xp VALUES (?, 0)", (user_id,))
+        conn.commit()
+        return 0
+
+def set_points(user_id, points):
+    #connect to the database
+    conn = sqlite3.connect('xp.sqlite')
+    c = conn.cursor()
+
+    # update the user's XP in the database
+    c.execute("UPDATE xp SET xp = ? WHERE user_id = ?", (points, user_id))
+    conn.commit()
+
+def calculate_level(points):
+    return int(points ** 0.5 / 10) + 1
+
+def calculate_level_xp(level):
+    return (level-1)**2 * 100
+
+client.run(import discord
+from discord.ext import commands
+import sqlite3
+
+client = commands.Bot(command_prefix = '!')
+
+@client.event
+async def on_message(message):
+    # ignore messages from the bot itself
+    if message.author == client.user:
+        return
+
+    # give the user a point for sending a message
+    user_id = message.author.id
+    points = get_points(user_id)
+    set_points(user_id, points + 1)
+
+@client.command()
+async def xp(ctx):
+    user_id = ctx.message.author.id
+    points = get_points(user_id)
+    level = calculate_level(points)
+    next_level = level + 1
+    next_level_xp = calculate_level_xp(next_level)
+    current_level_xp = calculate_level_xp(level)
+    remaining_xp = next_level_xp - points
+    await ctx.send(f'You are level {level} with {points} XP. To reach level {next_level} you need {remaining_xp} XP. ')
+
+@client.command()
+async def level(ctx):
+    user_id = ctx.message.author.id
+    points = get_points(user_id)
+    level = calculate_level(points)
+    await ctx.send(f'You are level {level}')
+
+def get_points(user_id):
+    #connect to the database
+    conn = sqlite3.connect('xp.sqlite')
+    c = conn.cursor()
+
+    # check if the user exists in the database
+    c.execute("SELECT * FROM xp WHERE user_id = ?", (user_id,))
+    result = c.fetchone()
+
+    if result:
+        # return the user's XP
+        return result[1]
+    else:
+        # if the user doesn't exist in the database, add them with 0 XP
+        c.execute("INSERT INTO xp VALUES (?, 0)", (user_id,))
+        conn.commit()
+        return 0
+
+def set_points(user_id, points):
+    #connect to the database
+    conn = sqlite3.connect('xp.sqlite')
+    c = conn.cursor()
+
+    # update the user's XP in the database
+    c.execute("UPDATE xp SET xp = ? WHERE user_id = ?", (points, user_id))
+    conn.commit()
+
+def calculate_level(points):
+    return int(points ** 0.5 / 10) + 1
+
+def calculate_level_xp(level):
+    return (level-1)**2 * 100
+
+client.run(MTA2MzQ2NjY4MTA1NTMxNDA1MQ.GGOwCl.Am9A5OERH6X31z6AObpGKM3j0Uap4DDIIhxy3U)
