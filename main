@@ -202,4 +202,4 @@ def calculate_level(points):
 def calculate_level_xp(level):
     return (level-1)**2 * 100
 process.env.BOT_TOKEN
-client.run(MTA2MzQ2NjY4MTA1NTMxNDA1MQ.GsvI-w.sX9s4JsiZD9IvMK8cyT1gwv4RuL19WdvmbAW-o)
+client.run(process.env.BOT_TOKEN)
